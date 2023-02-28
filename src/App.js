@@ -2,8 +2,31 @@ import React, { useState } from 'react'
 import Erium from "./components/Erium";
 import { BsChevronDown} from 'react-icons/bs'
 import MyAccount from './components/MyAccount'
+import ReactDOM from "react-dom/client";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import CreateAccount from './components/CreateAccount';
+import ImportAccount from './components/ImportAccount';
 
 function App() {
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Erium/>,
+    },
+    {
+      path: "/CreateAccount",
+      element: <CreateAccount/>,
+    },
+    {
+      path: "/ImportAccount",
+      element: <ImportAccount/>,
+    },
+  ]);
+
   const [showMyAccount, setShowMyAccount] = useState(false)
     const handleOnClose = () => {setShowMyAccount(false)} 
 
@@ -16,7 +39,10 @@ function App() {
             <MyAccount onClose={handleOnClose} visible={showMyAccount}/>
         </div>
 
-    <Erium/>
+        <React.StrictMode>
+          <RouterProvider router={router} />
+         </React.StrictMode>
+    
   </div>
   );
 }
