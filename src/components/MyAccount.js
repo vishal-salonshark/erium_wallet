@@ -3,6 +3,7 @@ import {TfiClose} from 'react-icons/tfi'
 import {AiOutlinePlus} from 'react-icons/ai'
 import {BiArrowToBottom} from 'react-icons/bi'
 import {TbPlugConnected, TbMessageCircle, TbSettings} from 'react-icons/tb'
+// import { Link } from 'react-router-dom'
 
 const MyAccount = ({visible, onClose}) => {
     const handleOnClose = (e) =>{
@@ -59,12 +60,13 @@ const MyAccount = ({visible, onClose}) => {
       <div className='mb-2 p-2 border-y-[1px] border-gray-400'>
         <div className='flex flex-row justify-start items-center gap-3 p-2 text-gray-600 hover:bg-[#89cdb372]'>
             <AiOutlinePlus className='w-6 h-6'/>
-            <label className='text-black text-base font-light'>Create Account</label>
+            <label className='text-black text-base font-light'><a href='/CreateAccount'>Create Account</a></label>
+            {/* <Link className='text-black text-base font-light' to={'/CreateAccount'}>Create Account</Link> */}
         </div>
 
         <div className='flex flex-row justify-start items-center gap-3 p-2 text-gray-600 hover:bg-[#89cdb372]'>
             <BiArrowToBottom className='w-6 h-6 font-extralight'/>
-            <label className='text-black text-base font-light'>Import Account</label>
+            <label className='text-black text-base font-light'><a href='/ImportAccount'>Import Account</a></label>
         </div>
 
         <div className='flex flex-row justify-start items-center gap-3 p-2 text-gray-600 hover:bg-[#89cdb372]'>

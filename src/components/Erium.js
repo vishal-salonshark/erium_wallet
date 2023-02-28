@@ -1,12 +1,51 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {BsThreeDotsVertical, BsChevronDown, BsArrowUpRight} from 'react-icons/bs'
 import {BiImport} from 'react-icons/bi'
 import{MdArrowForwardIos} from 'react-icons/md'
 import { AiOutlineSwap } from 'react-icons/ai'
-import MyAccount from './MyAccount'
+import AccountBal from './AccountBal'
+import Web3 from 'web3'
+import { ethers } from "ethers";
 
-const Erium = () => {
+const Erium =  () => {
+    var web3 = new Web3(new Web3.providers.HttpProvider('http://99.80.123.81:8545'));
+    const [account,setAccount] = useState('')
+    const [balance,setBalance] = useState('')
+    const [menu, setMenu] =useState ('Assets')
+    var n = 0;
+    useEffect( ()=> {
+        const getWallet = async () => {
+
+            const wallet = await web3.eth.accounts.wallet
+            if(wallet.wallet == null){
+                
+                web3.eth.accounts.wallet.add('e0154ad5a34d80375e5d602c89db8b2a5c1aa165c9e12c4a9675c8b50b8adb5b');
+                
+                web3.eth.accounts.wallet.add('ce4ccc047347d20f188fed69794d642d2704ced609db43af9168d46aaa3a02fe');
+            }
+            // console.log(wallet.length)
+            // for(var i = 0; i<= wallet.length ;i++ ){
+            //     console.log(wallet[i])
+            // }
+            return wallet
+        }
+        getWallet().then((e) =>{
+            setAccount(e[0].address) 
+        })
+    }, [])
+
+    useEffect(() =>{
+        const getBal = async () => {
+            const bal = await web3.eth.getBalance(account)
+            return( await web3.utils.fromWei(bal, 'ether'))
+        }
+        getBal().then((e) => {
+            setBalance(e)
+        })
+    }, [account])
+
     const [showMyAccount, setShowMyAccount] = useState(false)
     const handleOnClose = () => {setShowMyAccount(true)} 
   return (
@@ -24,7 +63,7 @@ const Erium = () => {
             </div>
             <div className='w-28 my-1 hover:bg-[#fdfdfd21] rounded-md p-1 flex flex-col justify-center items-center text-white '>
                 <div className='font-bold'>Account</div>
-                <div className=' w-10/12 text-sm  font-light  truncate'> 0x9A3f19Ba83F15662a04FDB6faaEf0363d4Ae3CAa</div>
+                <div className=' w-10/12 text-sm  font-light  truncate'>{account}</div>
             </div>
             <div className=' w-24 m-1 h-14 flex justify-end items-center'>
             <BsThreeDotsVertical className='text-xl font-extrabold w-6 h-6 '/>
@@ -34,7 +73,7 @@ const Erium = () => {
         
         <div className='flex flex-col mb-9 justify-center items-center'>
             <div className='w-10 h-10 rounded-full m-2 border-[2px] border-gray-200 flex justify-center items-center bg-white'></div>
-            <div className=' flex justify-center my-2 items-center text-white font-bold text-4xl'>0 ETH</div>
+            <div className=' flex justify-center my-2 items-center text-white font-bold text-4xl'><label className='truncate w-32'>{balance}</label> ETH</div>
             <div className=' flex justify-center mb-4 items-center text-gray-200 text-base'>$0.00 USD</div>
             <div className='w-60 h-16  px-4 flex flex-row justify-between items-center gap-2'>
                 <div className='flex flex-col justify-center items-center'>
@@ -54,58 +93,16 @@ const Erium = () => {
 
         <div className='h-10 w-96 mb-3 flex flex-row justify-center items-center '>
             <button className='w-1/2 p-1  m-[2px] focus:border-b-2 focus:border-[#89CDB3]'>
-                <div className='w-full hover:bg-[#fdfdfd21] rounded-xl text-base font-light h-10 flex justify-center items-center text-white'>Assets</div>
+                <div className='w-full hover:bg-[#fdfdfd21] rounded-xl text-base font-light h-10 flex justify-center items-center text-white' onClick={(e) => setMenu(e.target.textContent)}>Assets</div>
             </button>
             <button className='w-1/2 p-1 m-[2px] focus:border-b-2 focus:border-[#89CDB3]'>
-                <div className='w-full hover:bg-[#fdfdfd21] rounded-xl text-base font-light h-10 flex justify-center items-center text-white'>Activity</div>
+                <div className='w-full hover:bg-[#fdfdfd21] rounded-xl text-base font-light h-10 flex justify-center items-center text-white' onClick={(e) => setMenu(e.target.textContent)}>Activity</div>
             </button>
         </div>
 
-    <div>
-        <div className='w-96 h-20 flex items-center px-4 border-y-[1px] border-gray-500 text-white'>
-            <div className='w-10 h-10 rounded-full border-[2px] border-[#89CDB3] flex justify-center items-center bg-white' ></div>
-            <div className='w-72 h-14 px-4 flex flex-col justify-start items-center'>
-                <div className='w-full font-light'>0 ETH</div>
-                <div className='w-full text-sm text-gray-500'>$0.00 USD</div>
-            </div>
-            <div className='w-5 h-20 flex justify-end items-center'> <MdArrowForwardIos className='font-bold text-lg'/></div>
-        </div>
-
-        <div className='w-96 h-20 flex items-center px-4 border-b-[1px] border-gray-500 text-white'>
-            <div className='w-10 h-10 rounded-full border-[2px] border-[#89CDB3] flex justify-center items-center bg-white' ></div>
-            <div className='w-72 h-14 px-4 flex flex-col justify-start items-center'>
-                <div className='w-full font-light'>0 ETH</div>
-                <div className='w-full text-sm text-gray-500'>$0.00 USD</div>
-            </div>
-            <div className='w-5 h-20 flex justify-end items-center'> <MdArrowForwardIos className='font-bold text-lg'/></div>
-        </div>
-
-        <div className='w-96 h-20 flex items-center px-4 border-b-[1px] border-gray-500 text-white'>
-            <div className='w-10 h-10 rounded-full border-[2px] border-[#89CDB3] flex justify-center items-center bg-white' ></div>
-            <div className='w-72 h-14 px-4 flex flex-col justify-start items-center'>
-                <div className='w-full font-light'>0 ETH</div>
-                <div className='w-full text-sm text-gray-500'>$0.00 USD</div>
-            </div>
-            <div className='w-5 h-20 flex justify-end items-center'> <MdArrowForwardIos className='font-bold text-lg'/></div>
-        </div>
-
-        <div className='w-96 h-20 flex items-center px-4 border-b-[1px] border-gray-500 text-white'>
-            <div className='w-10 h-10 rounded-full border-[2px] border-[#89CDB3] flex justify-center items-center bg-white' ></div>
-            <div className='w-72 h-14 px-4 flex flex-col justify-start items-center'>
-                <div className='w-full font-light'>0 ETH</div>
-                <div className='w-full text-sm text-gray-500'>$0.00 USD</div>
-            </div>
-            <div className='w-5 h-20 flex justify-end items-center'> <MdArrowForwardIos className='font-bold text-lg'/></div>
-        </div>
-
-    <div className=' w-96 h-14 flex flex-col justify-center items-center text-white'>
-        <div className='text-sm mt-2 font-light text-gray-400 '>Don't see your token?</div>
-        <div className='text-sm mt-1'><label className='text-blue-500 font-light'>Refresh list</label> or <label className='text-blue-500 font-light'>import tokens</label></div>
-    </div>
-    </div>
+    {menu === 'Assets' ?<AccountBal acc={account} bal={balance}/>:<label className='text-base mt-5 text-gray-300 '>No Activity Yet...!</label>}
 
     <div className='w-96 h-8 flex justify-center gap-2 text-sm items-center my-2 text-white'>Need help ? <label className='text-blue-500'> Contact Erium support</label></div>
-
 
     </div>
   )

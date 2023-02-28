@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React, { useState, useEffect } from 'react'
 import { BiChevronDown } from 'react-icons/bi'
 const ImportAccount = () => {
@@ -5,7 +6,7 @@ const ImportAccount = () => {
     const [inputValue, setInputValue] = useState('')
     const [selected, setSelected] = useState('')
     const [open, setOpen] = useState(false)
-    const [search, setSearch] = useState('')
+    // const [search, setSearch] = useState('')
 
     useEffect(() => {
         const data = [{ option: 'PrivateKey' }, { option: 'JsonFile' }]
@@ -31,7 +32,7 @@ const ImportAccount = () => {
                             ? selected?.length > 25
                                 ? selected?.substring(0, 25) + '...'
                                 : selected
-                            : 'Select Option'}
+                            : 'Select Type'}
                         <BiChevronDown size={20} className={`${open && 'rotate-180'}`} />
                     </div>
                     <ul
@@ -67,7 +68,7 @@ const ImportAccount = () => {
             </div>
 
             <div className='text-3xl text-white flex justify-center items-center mt-1'>
-                {selected == 'PrivateKey' ?
+                {selected === 'PrivateKey' ?
                     <div className=' mx-5 '>
                         <label className='p-3 mb-5 text-base font-normal text-gray-300'>Enter your private key string here :</label>
                         <input type="text" className='align-middle border-2 border-[#89CDB3] rounded-lg bg-transparent p-4 placeholder-[#89cdb36b] m-2 w-80 h-14' name="PrivateKey" id="" />
@@ -76,7 +77,7 @@ const ImportAccount = () => {
                             <button className='text-white text-base w-36 h-14 bg-[#89CDB3] border-2 border-[#89CDB3] hover:bg-opacity-20 hover:text-[#89CDB3] rounded-full'>Import</button>
                         </div>
                     </div>
-                    : <div className='text-base mt-2 flex flex-col justify-center items-center'>
+                    :selected === 'JsonFile' ? <div className='text-base mt-2 flex flex-col justify-center items-center'>
                         <label className='text-sm'>Used by a variety of different clients</label>
                         <label className='text-sm text-blue-500'>File import not working? Click here!</label>
                         <input type="file" className=' file:bg-transparent file:w-32 file:rounded-full file:hover:bg-[#89cdb353] file:hover:text-white file:h-10 file:border-2 file:text-[#89CDB3] my-5 file:mx-3 file:text-base file:border-[#89CDB3]' name="" id="" />
@@ -85,7 +86,9 @@ const ImportAccount = () => {
                             <button className='text-[#89CDB3] text-base w-36 h-14 border-2 border-[#89CDB3] rounded-full'>Cancel</button>
                             <button className='text-white text-base w-36 h-14 bg-[#89CDB3] border-2 border-[#89CDB3] hover:bg-opacity-20 hover:text-[#89CDB3] rounded-full'>Import</button>
                         </div>
-                    </div>}
+                    </div>
+                    : <label className='text-base text-gray-300 mt-20 '>Please Select type ...!</label>
+                    }
             </div>
         </div>
     )
