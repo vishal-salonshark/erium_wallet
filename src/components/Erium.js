@@ -13,41 +13,48 @@ const Erium =  () => {
     var web3 = new Web3(new Web3.providers.HttpProvider('http://99.80.123.81:8545'));
     const [account,setAccount] = useState('')
     const [balance,setBalance] = useState('')
+
+    // useEffect( ()=> {
+    //     const getWallet = async () => {
+
+    //         const wallet = await web3.eth.accounts.wallet
+    //         if(wallet.wallet == null){
+                
+    //             web3.eth.accounts.wallet.add('e0154ad5a34d80375e5d602c89db8b2a5c1aa165c9e12c4a9675c8b50b8adb5b');
+                
+    //             web3.eth.accounts.wallet.add('ce4ccc047347d20f188fed69794d642d2704ced609db43af9168d46aaa3a02fe');
+    //         }
+    //         // console.log(wallet.length)
+    //         // for(var i = 0; i<= wallet.length ;i++ ){
+    //         //     console.log(wallet[i])
+    //         // }
+    //         return wallet
+    //     }
+    //     getWallet().then((e) =>{
+    //         setAccount(e[0].address) 
+    //     })
+    // }, [])
+
+    // useEffect(() =>{
+    //     const getBal = async () => {
+    //         const bal = await web3.eth.getBalance(account)
+    //         return( await web3.utils.fromWei(bal, 'ether'))
+    //     }
+    //     getBal().then((e) => {
+    //         setBalance(e)
+    //     })
+    // }, [account])
+
+    const getWallet = async () => {
+        const wallet = await web3.eth.accounts.wallet.create()
+        console.log(wallet)
+    }
+    getWallet()
+
     const [menu, setMenu] =useState ('Assets')
-    var n = 0;
-    useEffect( ()=> {
-        const getWallet = async () => {
-
-            const wallet = await web3.eth.accounts.wallet
-            if(wallet.wallet == null){
-                
-                web3.eth.accounts.wallet.add('e0154ad5a34d80375e5d602c89db8b2a5c1aa165c9e12c4a9675c8b50b8adb5b');
-                
-                web3.eth.accounts.wallet.add('ce4ccc047347d20f188fed69794d642d2704ced609db43af9168d46aaa3a02fe');
-            }
-            // console.log(wallet.length)
-            // for(var i = 0; i<= wallet.length ;i++ ){
-            //     console.log(wallet[i])
-            // }
-            return wallet
-        }
-        getWallet().then((e) =>{
-            setAccount(e[0].address) 
-        })
-    }, [])
-
-    useEffect(() =>{
-        const getBal = async () => {
-            const bal = await web3.eth.getBalance(account)
-            return( await web3.utils.fromWei(bal, 'ether'))
-        }
-        getBal().then((e) => {
-            setBalance(e)
-        })
-    }, [account])
-
     const [showMyAccount, setShowMyAccount] = useState(false)
     const handleOnClose = () => {setShowMyAccount(true)} 
+
   return (
     <div className='w-96 h-[32rem]  overflow-auto scrollbar-none flex flex-col justify-start items-center'>
         {/* <div className='h-20 w-full bg-gray-100 flex flex-row justify-between items-center p-2 gap-2'>

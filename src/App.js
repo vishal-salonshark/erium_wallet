@@ -3,13 +3,24 @@ import Erium from './components/Erium'
 import { BsChevronDown } from 'react-icons/bs'
 import MyAccount from './components/MyAccount'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+// import { AppProvider } from './AppContext'
 import CreateAccount from './components/CreateAccount'
 import ImportAccount from './components/ImportAccount'
+import Login from './components/Login'
+import CreateNewAccount from './components/CreateNewAccount'
 
 function App() {
   const router = createBrowserRouter([
     {
       path: '/',
+      element: <Login />,
+    },
+    {
+      path: '/CreateNewAccount',
+      element: <CreateNewAccount />,
+    },
+    {
+      path: '/Erium',
       element: <Erium />,
     },
     {
@@ -32,6 +43,7 @@ function App() {
   }
 
   return (
+    // <AppProvider>
     <React.StrictMode>
       <div className="w-96 h-[37rem] flex flex-col  bg-[#030214] justify-start items-center border-2 border-gray-300 ">
         <div className="h-20 w-full bg-gray-100 flex flex-row justify-between items-center p-2 gap-2">
@@ -56,6 +68,7 @@ function App() {
         <RouterProvider router={router} />
       </div>
     </React.StrictMode>
+    // </AppProvider>
   )
 }
 
