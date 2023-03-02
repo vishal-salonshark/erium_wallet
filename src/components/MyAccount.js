@@ -13,7 +13,7 @@ const MyAccount = ({visible, onClose}) => {
     }
     if(!visible) return null
   return (
-    <div onClick={handleOnClose} id='MyAccount' className="fixed inset-0 p-2 opacity-90 flex items-center justify-center">
+    <div onClick={handleOnClose} id='MyAccount' className="fixed inset-0 text-black p-2 opacity-90 flex items-center justify-center">
     <div className="bg-white  rounded  w-80">
         <div className='flex felx-row justify-between items-center p-2 text-lg border-b-[1px] border-gray-300'>
             <label>My Account</label>

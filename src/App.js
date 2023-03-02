@@ -8,12 +8,17 @@ import CreateAccount from './components/CreateAccount'
 import ImportAccount from './components/ImportAccount'
 import Login from './components/Login'
 import CreateNewAccount from './components/CreateNewAccount'
+import Home from './components/Home'
 
 function App() {
   const router = createBrowserRouter([
     {
       path: '/',
       element: <Login />,
+    },
+    {
+      path: '/Home',
+      element: <Home />,
     },
     {
       path: '/CreateNewAccount',
@@ -45,9 +50,9 @@ function App() {
   return (
     // <AppProvider>
     <React.StrictMode>
-      <div className="w-96 h-[37rem] flex flex-col  bg-[#030214] justify-start items-center border-2 border-gray-300 ">
+      <div className="w-96 h-[37rem] flex flex-col text-white  bg-[#030214] justify-start items-center border-2 border-gray-300 ">
         <div className="h-20 w-full bg-gray-100 flex flex-row justify-between items-center p-2 gap-2">
-          <div className="w-10 h-10 flex justify-center items-center rounded-full  bg-white text-xs">
+          <div className="w-10 h-10 flex justify-center items-center rounded-full text-black bg-white text-xs">
             <a href='/'>LOGO</a>
           </div>
           <div className="h-10 flex justify-center items-center ">

@@ -7,7 +7,6 @@ import{MdArrowForwardIos} from 'react-icons/md'
 import { AiOutlineSwap } from 'react-icons/ai'
 import AccountBal from './AccountBal'
 import Web3 from 'web3'
-import { ethers } from "ethers";
 
 const Erium =  () => {
     var web3 = new Web3(new Web3.providers.HttpProvider('http://99.80.123.81:8545'));
@@ -45,11 +44,11 @@ const Erium =  () => {
     //     })
     // }, [account])
 
-    const getWallet = async () => {
-        const wallet = await web3.eth.accounts.wallet.create()
-        console.log(wallet)
-    }
-    getWallet()
+    // const getWallet = async () => {
+    //     const wallet = await web3.eth.accounts.wallet.create()
+    //     console.log(wallet)
+    // }
+    // getWallet()
 
     const [menu, setMenu] =useState ('Assets')
     const [showMyAccount, setShowMyAccount] = useState(false)

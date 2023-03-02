@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 var express = require('express')
 var cors = require('cors')
 const mongoose = require('mongoose');
@@ -32,13 +33,17 @@ app.put('/userData', async (req, res) => {
     password: password,
   })
 
-  res.json('data saved successfully ..')
+  res.json({result:"success"})
 
 })
 
-// app.get('/', function (req, res, next) {
-//   res.json({msg: 'This is CORS-enabled for all origins!'})
-// })
+app.get('/login/:emailID',(req, res) => {
+  var emailid = req.params.emailID
+  UserData.find({"email" : emailid}).then( (result) => {
+      res.json(result);
+    })
+  })
+
  
 app.listen(5500, function () {
   console.log('server listening on port 5500')
