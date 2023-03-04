@@ -1,13 +1,43 @@
 /* eslint-disable eqeqeq */
 import React, { useState, useEffect } from 'react'
 import { BiChevronDown } from 'react-icons/bi'
+import Web3 from 'web3'
+// import * as fs from 'fs';
+
+// const fs = require('fs')
+
 const ImportAccount = () => {
     const [options, setOptions] = useState(null)
     const [inputValue, setInputValue] = useState('')
     const [selected, setSelected] = useState('')
     const [open, setOpen] = useState(false)
+    const [privateKey, setPrivateKey] = useState('')
+    const [jsonData, setJsonData]= useState('')
     // const [search, setSearch] = useState('')
 
+    var web3 = new Web3(new Web3.providers.HttpProvider('http://99.80.123.81:8545'));    
+
+    const getAccoountByPrivateKey = async () => {
+        const account = await web3.eth.accounts.privateKeyToAccount(privateKey)
+        console.log(account)
+        await web3.eth.accounts.wallet.add(privateKey);
+        const jsonData = await web3.eth.accounts.wallet.encrypt('123456789');
+        console.log((jsonData[0]))
+
+        // fs.writeFile('C:/Users/hii/Desktop/SalonShark/erium_wallet/myFile.json', JSON.stringify(jsonData[0]), (err) => {
+        //     if (err) console.log('Error writing file:', err);
+        // })
+    }
+
+    // const getAccoountByEncreptedKey = async () => {
+    //     const account = await web3.eth.accounts.privateKeyToAccount(privateKey)
+
+    //     console.log(account.address)
+    // }
+
+    useEffect(() => {
+        console.log(privateKey)
+    },[privateKey])
     useEffect(() => {
         const data = [{ option: 'PrivateKey' }, { option: 'JsonFile' }]
         setOptions(data)
@@ -71,16 +101,16 @@ const ImportAccount = () => {
                 {selected === 'PrivateKey' ?
                     <div className=' mx-5 '>
                         <label className='p-3 mb-5 text-base font-normal text-gray-300'>Enter your private key string here :</label>
-                        <input type="text" className='align-middle border-2 border-[#89CDB3] rounded-lg bg-transparent p-4 placeholder-[#89cdb36b] m-2 w-80 h-14' name="PrivateKey" id="" />
+                        <input type="text" className='align-middle border-2 text-base border-[#89CDB3] rounded-lg bg-transparent p-4 placeholder-[#89cdb36b] m-2 w-80 h-14' name="PrivateKey" id="" onChange={(e) => setPrivateKey(e.target.value)} />
                         <div className=' flex justify-around items-center mt-6' >
                             <button className='text-[#89CDB3] text-base w-36 h-14 border-2 border-[#89CDB3] rounded-full'>Cancel</button>
-                            <button className='text-white text-base w-36 h-14 bg-[#89CDB3] border-2 border-[#89CDB3] hover:bg-opacity-20 hover:text-[#89CDB3] rounded-full'>Import</button>
+                            <button className='text-white text-base w-36 h-14 bg-[#89CDB3] border-2 border-[#89CDB3] hover:bg-opacity-20 hover:text-[#89CDB3] rounded-full' onClick={() => getAccoountByPrivateKey()}>Import</button>
                         </div>
                     </div>
                     :selected === 'JsonFile' ? <div className='text-base mt-2 flex flex-col justify-center items-center'>
                         <label className='text-sm'>Used by a variety of different clients</label>
                         <label className='text-sm text-blue-500'>File import not working? Click here!</label>
-                        <input type="file" className=' file:bg-transparent file:w-32 file:rounded-full file:hover:bg-[#89cdb353] file:hover:text-white file:h-10 file:border-2 file:text-[#89CDB3] my-5 file:mx-3 file:text-base file:border-[#89CDB3]' name="" id="" />
+                        <input type="file" accept="application/JSON" className=' file:bg-transparent file:w-32 file:rounded-full file:hover:bg-[#89cdb353] file:hover:text-white file:h-10 file:border-2 file:text-[#89CDB3] my-5 file:mx-3 file:text-base file:border-[#89CDB3]' name="" id="" />
                         <input type="text" className='align-middle border-2 border-[#89CDB3] rounded-md bg-transparent p-4 placeholder-[#89cdb36b] m-2 w-80 h-14' name="Password" id="" placeholder='Enter Password' />
                         <div className=' flex justify-between items-center gap-6 mt-3' >
                             <button className='text-[#89CDB3] text-base w-36 h-14 border-2 border-[#89CDB3] rounded-full'>Cancel</button>

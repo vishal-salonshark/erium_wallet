@@ -88,7 +88,7 @@ const Login = () => {
       <div className=' flex flex-col justify-center items-center py-10'>
       {
         _warrning === true ?<div className=' flex flex-row justify-start items-center w-80 min-h-14 border-[1px] bg-yellow-200 bg-opacity-20 p-2 mb-5 border-yellow-300 rounded-md'>
-        <MdOutlineError className='text-base text-yellow-500'/>
+      <MdOutlineError className='text-base text-yellow-500'/>
         <label className='text-xs text-yellow-300 ml-2 '>{errMessage}</label>
         </div>: ""
         }
@@ -103,7 +103,6 @@ const Login = () => {
       </div>
       </Form>
     </div>
-  )
-}
+  )}
 
 export default Login
