@@ -1,47 +1,91 @@
-import React, {createContext, useState, useEffect} from 'react'
-import Web3 from 'web3'
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { createContext, useState, useEffect } from "react";
+import { json } from "react-router-dom";
+import Web3 from "web3";
 
-const AppContext = createContext({});
+export const AppContext = createContext(null);
 
-export const AppProvider = ({ children }) => {
-    var web3 = new Web3(new Web3.providers.HttpProvider('http://99.80.123.81:8545'));
+export const AppContextProvider = ({ children }) => {
 
-    const [account,setAccount] = useState('')
-    const [balance,setBalance] = useState('')
-    const [menu, setMenu] =useState ('Assets')
 
-        const getWallet = async () => {
-            const wallet = await web3.eth.accounts.wallet
-            if(wallet.wallet == null){
+    const [privateKey, setPrivateKey] = useState('')
+    const [fileContents, setFileContents] = useState('')
+    const [account, setAccount] = useState()
+    const web3 = new Web3(new Web3.providers.HttpProvider('http://99.80.123.81:8545'));
 
-                web3.eth.accounts.wallet.add('e0154ad5a34d80375e5d602c89db8b2a5c1aa165c9e12c4a9675c8b50b8adb5b');
+     const setToWallet =  (account) =>{
+         // Define the key-value pair you want to add to local storage
+        const key = account.address;
+        const value = JSON.stringify(account);
 
-            }
-            // console.log(wallet.length)
-            // for(var i = 0; i<= wallet.length ;i++ ){
-            //     console.log(wallet[i])
-            // }
-            
-            return wallet
+        // Check if the key exists in local storage
+        if (!localStorage.getItem(key)) {
+          // If it doesn't exist, add it to local storage
+          localStorage.setItem(key, value);
+          console.log(key + ' added to local storage');
+        } else {
+          // If it does exist, log a message to the console
+          console.log(key + ' already exists in local storage');
         }
-
-    useEffect(() =>{
-        const getBal = async () => {
-            const bal = await web3.eth.getBalance(account)
-            return( await web3.utils.fromWei(bal, 'ether'))
-        }
-        getBal().then((e) => {
-            setBalance(e)
-        })
-    }, [account])
+     }
     
-    return (
-        <AppContext.Provider value={{
-            account, setAccount, balance, setBalance, getWallet
-        }}>
-            {children}
-        </AppContext.Provider>
-    )
-}
+    
+    const getAccoountByPrivateKey = async () => {
+        
+        
+        const account = await web3.eth.accounts.wallet.add(privateKey);
+        setToWallet(account)
+        
+        setAccount(account)
 
-export default AppContext
+        // const jsonData = await web3.eth.accounts.wallet.encrypt('123456789');
+        // console.log((jsonData[0]))
+
+        // const data = JSON.stringify(jsonData[0])
+        // const blob = new Blob([data], { type: 'application/json' })
+        // const url = URL.createObjectURL(blob)
+        // const link = document.createElement('a')
+        // link.href = url
+        // link.download = 'myFile.json'
+        // document.body.appendChild(link)
+        // link.click()
+        // document.body.removeChild(link)
+
+    }
+
+    const getAccoountByEncreptedKey = async () => {
+        try {
+            console.log(fileContents)
+        const jsonData = await web3.eth.accounts.wallet.decrypt([fileContents], '123456789');
+        console.log(jsonData.length)
+        for(let i=0; i<jsonData.length; i++){
+            // console.log(jsonData[i])
+            setToWallet(jsonData[i])
+        
+        }
+        // const account = await web3.eth.accounts.wallet.add(jsonData[0].privateKey);
+        // console.log(account)
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
+
+    const value = {
+        privateKey, 
+        setPrivateKey,
+        fileContents, 
+        setFileContents,
+        account,
+        setAccount,
+        getAccoountByPrivateKey,
+        getAccoountByEncreptedKey,
+     };
+
+  return (
+    <AppContext.Provider value={value}> {children} </AppContext.Provider>
+  );
+};
+
+export default AppContext;

@@ -1,43 +1,73 @@
+/* eslint-disable no-eval */
+/* eslint-disable no-unused-vars */
 /* eslint-disable eqeqeq */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useContext } from 'react'
 import { BiChevronDown } from 'react-icons/bi'
 import Web3 from 'web3'
-// import * as fs from 'fs';
+import AppContext  from '../AppContext'
 
-// const fs = require('fs')
 
 const ImportAccount = () => {
+
+    const { setPrivateKey, setFileContents, getAccoountByPrivateKey, getAccoountByEncreptedKey} = useContext(AppContext);
     const [options, setOptions] = useState(null)
     const [inputValue, setInputValue] = useState('')
     const [selected, setSelected] = useState('')
     const [open, setOpen] = useState(false)
-    const [privateKey, setPrivateKey] = useState('')
-    const [jsonData, setJsonData]= useState('')
-    // const [search, setSearch] = useState('')
+
 
     var web3 = new Web3(new Web3.providers.HttpProvider('http://99.80.123.81:8545'));    
 
-    const getAccoountByPrivateKey = async () => {
-        const account = await web3.eth.accounts.privateKeyToAccount(privateKey)
-        console.log(account)
-        await web3.eth.accounts.wallet.add(privateKey);
-        const jsonData = await web3.eth.accounts.wallet.encrypt('123456789');
-        console.log((jsonData[0]))
+ 
 
-        // fs.writeFile('C:/Users/hii/Desktop/SalonShark/erium_wallet/myFile.json', JSON.stringify(jsonData[0]), (err) => {
-        //     if (err) console.log('Error writing file:', err);
-        // })
-    }
+    // const getAccoountByPrivateKey = async () => {
+       
+    //     console.log(account)
+    //     // const account = await web3.eth.accounts.wallet.add(privateKey);
+    //     // console.log(account)
+        
+    //     // const jsonData = await web3.eth.accounts.wallet.encrypt('123456789');
+    //     // console.log((jsonData[0]))
 
-    // const getAccoountByEncreptedKey = async () => {
-    //     const account = await web3.eth.accounts.privateKeyToAccount(privateKey)
+    //     // const data = JSON.stringify(jsonData[0])
+    //     // const blob = new Blob([data], { type: 'application/json' })
+    //     // const url = URL.createObjectURL(blob)
+    //     // const link = document.createElement('a')
+    //     // link.href = url
+    //     // link.download = 'myFile.json'
+    //     // document.body.appendChild(link)
+    //     // link.click()
+    //     // document.body.removeChild(link)
+        
 
-    //     console.log(account.address)
     // }
 
-    useEffect(() => {
-        console.log(privateKey)
-    },[privateKey])
+    const handleFileUpload = (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          setFileContents(event.target.result);
+        };
+        reader.onerror = (event) => {
+          console.error('File reading error:', event.target.error);
+        };
+        reader.readAsText(file);
+      };
+    
+    //   const getAccoountByEncreptedKey = async () => {
+    //     try {
+    //         // console.log(fileContents)
+    //     //   const jsonData = JSON.parse(fileContents);
+    //     //   console.log(jsonData);
+    //     // const jsonData = await web3.eth.accounts.wallet.decrypt([fileContents], '123456789');
+    //     // const account = await web3.eth.accounts.wallet.add(jsonData[0].privateKey);
+    //     // console.log(account)
+    //     } catch (error) {
+    //       console.error(error);
+    //     }
+    //   };
+
+
     useEffect(() => {
         const data = [{ option: 'PrivateKey' }, { option: 'JsonFile' }]
         setOptions(data)
@@ -110,11 +140,11 @@ const ImportAccount = () => {
                     :selected === 'JsonFile' ? <div className='text-base mt-2 flex flex-col justify-center items-center'>
                         <label className='text-sm'>Used by a variety of different clients</label>
                         <label className='text-sm text-blue-500'>File import not working? Click here!</label>
-                        <input type="file" accept="application/JSON" className=' file:bg-transparent file:w-32 file:rounded-full file:hover:bg-[#89cdb353] file:hover:text-white file:h-10 file:border-2 file:text-[#89CDB3] my-5 file:mx-3 file:text-base file:border-[#89CDB3]' name="" id="" />
+                        <input type="file" accept="application/JSON" onChange={(e) => handleFileUpload(e)} className=' file:bg-transparent file:w-32 file:rounded-full file:hover:bg-[#89cdb353] file:hover:text-white file:h-10 file:border-2 file:text-[#89CDB3] my-5 file:mx-3 file:text-base file:border-[#89CDB3]' name="" id="" />
                         <input type="text" className='align-middle border-2 border-[#89CDB3] rounded-md bg-transparent p-4 placeholder-[#89cdb36b] m-2 w-80 h-14' name="Password" id="" placeholder='Enter Password' />
                         <div className=' flex justify-between items-center gap-6 mt-3' >
                             <button className='text-[#89CDB3] text-base w-36 h-14 border-2 border-[#89CDB3] rounded-full'>Cancel</button>
-                            <button className='text-white text-base w-36 h-14 bg-[#89CDB3] border-2 border-[#89CDB3] hover:bg-opacity-20 hover:text-[#89CDB3] rounded-full'>Import</button>
+                            <button className='text-white text-base w-36 h-14 bg-[#89CDB3] border-2 border-[#89CDB3] hover:bg-opacity-20 hover:text-[#89CDB3] rounded-full' onClick={() => getAccoountByEncreptedKey()}>Import</button>
                         </div>
                     </div>
                     : <label className='text-base text-gray-300 mt-20 '>Please Select type ...!</label>
