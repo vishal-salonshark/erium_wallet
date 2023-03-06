@@ -1,58 +1,32 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {BsThreeDotsVertical, BsChevronDown, BsArrowUpRight} from 'react-icons/bs'
 import {BiImport} from 'react-icons/bi'
 import{MdArrowForwardIos} from 'react-icons/md'
 import { AiOutlineSwap } from 'react-icons/ai'
 import AccountBal from './AccountBal'
 import Web3 from 'web3'
+import AppContext from '../AppContext'
+import { Link } from 'react-router-dom'
 
 const Erium =  () => {
     var web3 = new Web3(new Web3.providers.HttpProvider('http://99.80.123.81:8545'));
-    const [account,setAccount] = useState('')
+    const {_address} = useContext(AppContext)
     const [balance,setBalance] = useState('')
 
-    // useEffect( ()=> {
-    //     const getWallet = async () => {
+    useEffect(() =>{
+        const getBal = async () => {
+            const bal = await web3.eth.getBalance(_address)
+            return( await web3.utils.fromWei(bal, 'ether'))
+        }
+        getBal().then((e) => {
+            setBalance(e)
+        })
+    }, [_address])
 
-    //         const wallet = await web3.eth.accounts.wallet
-    //         if(wallet.wallet == null){
-                
-    //             web3.eth.accounts.wallet.add('e0154ad5a34d80375e5d602c89db8b2a5c1aa165c9e12c4a9675c8b50b8adb5b');
-                
-    //             web3.eth.accounts.wallet.add('ce4ccc047347d20f188fed69794d642d2704ced609db43af9168d46aaa3a02fe');
-    //         }
-    //         // console.log(wallet.length)
-    //         // for(var i = 0; i<= wallet.length ;i++ ){
-    //         //     console.log(wallet[i])
-    //         // }
-    //         return wallet
-    //     }
-    //     getWallet().then((e) =>{
-    //         setAccount(e[0].address) 
-    //     })
-    // }, [])
-
-    // useEffect(() =>{
-    //     const getBal = async () => {
-    //         const bal = await web3.eth.getBalance(account)
-    //         return( await web3.utils.fromWei(bal, 'ether'))
-    //     }
-    //     getBal().then((e) => {
-    //         setBalance(e)
-    //     })
-    // }, [account])
-
-    // const getWallet = async () => {
-    //     const wallet = await web3.eth.accounts.wallet.create()
-    //     console.log(wallet)
-    // }
-    // getWallet()
-
+    
     const [menu, setMenu] =useState ('Assets')
-    const [showMyAccount, setShowMyAccount] = useState(false)
-    const handleOnClose = () => {setShowMyAccount(true)} 
 
   return (
     <div className='w-96 h-[32rem]  overflow-auto scrollbar-none flex flex-col justify-start items-center'>
@@ -69,7 +43,7 @@ const Erium =  () => {
             </div>
             <div className='w-28 my-1 hover:bg-[#fdfdfd21] rounded-md p-1 flex flex-col justify-center items-center text-white '>
                 <div className='font-bold'>Account</div>
-                <div className=' w-10/12 text-sm  font-light  truncate'>{account}</div>
+                <div className=' w-10/12 text-sm  font-light  truncate'>{_address}</div>
             </div>
             <div className=' w-24 m-1 h-14 flex justify-end items-center'>
             <BsThreeDotsVertical className='text-xl font-extrabold w-6 h-6 '/>
@@ -79,7 +53,7 @@ const Erium =  () => {
         
         <div className='flex flex-col mb-9 justify-center items-center'>
             <div className='w-10 h-10 rounded-full m-2 border-[2px] border-gray-200 flex justify-center items-center bg-white'></div>
-            <div className=' flex justify-center my-2 items-center text-white font-bold text-4xl'><label className='truncate w-32'>{balance}</label> ETH</div>
+            <div className=' w-56 flex justify-center my-2 items-center text-white font-bold text-4xl'><label className='truncate'>{balance}</label> ETH</div>
             <div className=' flex justify-center mb-4 items-center text-gray-200 text-base'>$0.00 USD</div>
             <div className='w-60 h-16  px-4 flex flex-row justify-between items-center gap-2'>
                 <div className='flex flex-col justify-center items-center'>
@@ -90,10 +64,10 @@ const Erium =  () => {
                     <div className='w-10 h-10 bg-[#89CDB3] rounded-full flex justify-center items-center'><BsArrowUpRight className='w-5 h-5 text-white font-extrabold'/></div>
                     <label className='text-sm mt-2 text-[#89CDB3]'>Send</label>
                 </div>
-                <div className='flex flex-col justify-center items-center'>
+                <Link className='flex flex-col justify-center items-center' to={'/swap'}>
                     <div className='w-10 h-10 bg-[#89CDB3] rounded-full flex justify-center items-center'><AiOutlineSwap className='w-6 h-6 text-white font-bold'/></div>
-                    <label className='text-sm mt-2 text-[#89CDB3]'>Swap</label>
-                </div>
+                    <label className='text-sm mt-2 text-[#89CDB3]' >Swap</label>
+                </Link>
             </div>
         </div>
 
@@ -106,7 +80,7 @@ const Erium =  () => {
             </button>
         </div>
 
-    {menu === 'Assets' ?<AccountBal acc={account} bal={balance}/>:<label className='text-base mt-5 text-gray-300 '>No Activity Yet...!</label>}
+    {menu === 'Assets' ?<AccountBal acc={_address} bal={balance}/>:<label className='text-base mt-5 text-gray-300 '>No Activity Yet...!</label>}
 
     <div className='w-96 h-8 flex justify-center gap-2 text-sm items-center my-2 text-white'>Need help ? <label className='text-blue-500'> Contact Erium support</label></div>
 

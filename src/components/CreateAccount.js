@@ -1,22 +1,29 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import Web3 from 'web3'
+import AppContext  from '../AppContext'
 
 const CreateAccount = () => {
   var web3 = new Web3(new Web3.providers.HttpProvider('http://99.80.123.81:8545'));
   const [accName , setAccName] = useState('')
   
+  const { privateKey, setPrivateKey, getAccoountByPrivateKey} = useContext(AppContext)
+  
   const  createNewAcc = async () => {
 
     const newAccount = await web3.eth.accounts.create()
-    // console.log(newAccount)
-    const walletAdd = await web3.eth.accounts.wallet.add(newAccount);
-    const wallet = await web3.eth.accounts.wallet;
-    for(var i = 0; i<= wallet.length ;i++ ){
-      console.log(wallet[i])
-    }
-    console.log(wallet.length)
+    setPrivateKey(newAccount.privateKey)
+    console.log(newAccount.privateKey)
+    console.log(newAccount.address)
+
   }
+  useEffect(() => {
+    if(privateKey){
+      getAccoountByPrivateKey()
+    }
+  }, [privateKey])
+  
 
   
   return (
@@ -27,7 +34,7 @@ const CreateAccount = () => {
       </div>
       <div className=' flex justify-around items-center' >
         <button className='text-[#89CDB3] w-36 h-14 border-2 border-[#89CDB3] rounded-full'>Cancel</button>
-        <button className='text-white w-36 h-14 bg-[#89CDB3] border-2 border-[#89CDB3] hover:bg-opacity-20 hover:text-[#89CDB3] rounded-full' onClick={() => createNewAcc()}>Create</button>
+        <button className='text-white w-36 h-14 bg-[#89CDB3] border-2 border-[#89CDB3] hover:bg-opacity-20 hover:text-[#89CDB3] rounded-full' onClick={() => {createNewAcc()}}>Create</button>
       </div>
     </div>
   )

@@ -1,17 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-restricted-globals */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Form, Link, useNavigate } from "react-router-dom";
 import {MdOutlineError} from 'react-icons/md'
+import AppContext  from '../AppContext'
 import axios from 'axios';
 
 
 const Login = () => {
-  const [_email, setEmail] = useState()
-  const [_password, setPassword] = useState()
-  const [data, setData] = useState()
+  const { _email, setEmail, _password, setPassword, data, setData, result, setResult, setAddress } = useContext(AppContext)
+  // const [_email, setEmail] = useState()
+  // const [_password, setPassword] = useState()
+  // const [data, setData] = useState()
   const [_disabled, setDisabled] = useState(true)
-  const [result, setResult] = useState()
+  // const [result, setResult] = useState()
   const [_warrning , setWarrning] = useState(false)
   const [errMessage, setErrMessage] = useState()
 
@@ -19,7 +21,12 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  function onSubmit() {
+  useEffect(() => {
+    localStorage.setItem('login', false);
+  }, [])
+  
+
+  function onLogin() {
 
     axios.get(`http://localhost:5500/login/${_email}`).then((response)=>{
         setData(response.data)
@@ -34,12 +41,19 @@ const Login = () => {
      }
      else if(data && _email === data[0]?.email && _password === data[0]?.password){
 
-
       setResult('success')
-      navigate("/Home");
+      localStorage.setItem('login', true);
+      if(localStorage.length === 1){
+        navigate("/Home");
+      }else{
+        navigate("/Erium")
+        Object.entries(localStorage)[0][0] === 'login'? setAddress(Object.entries(localStorage)[1][0]): setAddress(Object.entries(localStorage)[0][0])
+      }
+      
      } 
      else{
       setWarrning(true)
+      localStorage.setItem('login', false);
       setErrMessage("Invalid email or password !!! ")
      }
   }, [data])
@@ -98,7 +112,7 @@ const Login = () => {
           <div className='flex flex-col justify-center items-start text-xs text-blue-300 ml-2 '>Loged in Successfully</div>
           </div> : ""
         }
-      <button disabled={_disabled} className='text-white w-36 mb-5 h-14 bg-[#89CDB3] border-2 border-[#89CDB3] hover:bg-opacity-20 hover:text-[#89CDB3] rounded-full disabled:bg-opacity-20 disabled:text-gray-400 disabled:border-gray-400' onClick={() =>onSubmit()}>Login</button>
+      <button disabled={_disabled} className='text-white w-36 mb-5 h-14 bg-[#89CDB3] border-2 border-[#89CDB3] hover:bg-opacity-20 hover:text-[#89CDB3] rounded-full disabled:bg-opacity-20 disabled:text-gray-400 disabled:border-gray-400' onClick={() =>onLogin()}>Login</button>
       <label className='text-base text-white'>Doesn't have account? <Link className='text-blue-500 hover:underline' to={'/CreateNewAccount'} >Create new account</Link></label>
       </div>
       </Form>

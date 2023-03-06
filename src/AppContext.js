@@ -12,7 +12,14 @@ export const AppContextProvider = ({ children }) => {
     const [privateKey, setPrivateKey] = useState('')
     const [fileContents, setFileContents] = useState('')
     const [account, setAccount] = useState()
+    const [_email, setEmail] = useState()
+    const [storageLength ,setStorageLength] = useState()
+    const [result, setResult] = useState('')
+    const [_password, setPassword] = useState()
+    const [data, setData] = useState()
+    const [_address, setAddress] = useState()
     const web3 = new Web3(new Web3.providers.HttpProvider('http://99.80.123.81:8545'));
+
 
      const setToWallet =  (account) =>{
          // Define the key-value pair you want to add to local storage
@@ -33,11 +40,13 @@ export const AppContextProvider = ({ children }) => {
     
     const getAccoountByPrivateKey = async () => {
         
-        
+      console.log(privateKey)
         const account = await web3.eth.accounts.wallet.add(privateKey);
         setToWallet(account)
         
         setAccount(account)
+
+        setStorageLength(localStorage.length)
 
         // const jsonData = await web3.eth.accounts.wallet.encrypt('123456789');
         // console.log((jsonData[0]))
@@ -62,7 +71,7 @@ export const AppContextProvider = ({ children }) => {
         for(let i=0; i<jsonData.length; i++){
             // console.log(jsonData[i])
             setToWallet(jsonData[i])
-        
+            setStorageLength(localStorage.length)
         }
         // const account = await web3.eth.accounts.wallet.add(jsonData[0].privateKey);
         // console.log(account)
@@ -81,6 +90,13 @@ export const AppContextProvider = ({ children }) => {
         setAccount,
         getAccoountByPrivateKey,
         getAccoountByEncreptedKey,
+        _email, 
+        setEmail,
+        _password, setPassword,
+        data, setData,
+        result, setResult,
+        storageLength ,setStorageLength,
+        _address, setAddress,
      };
 
   return (

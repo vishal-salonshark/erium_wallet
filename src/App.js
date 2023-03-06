@@ -9,6 +9,7 @@ import ImportAccount from './components/ImportAccount'
 import Login from './components/Login'
 import CreateNewAccount from './components/CreateNewAccount'
 import Home from './components/Home'
+import Swap from './components/Swap'
 
 function App() {
   const router = createBrowserRouter([
@@ -37,17 +38,20 @@ function App() {
       element: <ImportAccount />,
     },
     {
-      path: '',
-      element: <MyAccount />,
+      path: '/swap',
+      element: <Swap />,
     },
   ])
 
+  // const {result} = useContext(AppContext)
   const [showMyAccount, setShowMyAccount] = useState(false)
   const handleOnClose = () => {
     setShowMyAccount(false)
   }
+  
 
   return (
+    
     <AppContextProvider>
     <React.StrictMode>
       <div className="w-96 h-[37rem] flex flex-col text-white  bg-[#030214] justify-start items-center border-2 border-gray-300 ">
@@ -61,19 +65,21 @@ function App() {
               Erium Network <BsChevronDown className="w-3 h-3" />
             </div>{' '}
           </div>
-          <div
+         <div
             className="w-10 h-10 rounded-full border-[2px] border-blue-500 flex justify-center items-center bg-white"
             onClick={() => {
               setShowMyAccount(true)
             }}
           ></div>
-          <MyAccount onClose={handleOnClose} visible={showMyAccount} />
+         
+        <MyAccount onClose={handleOnClose} visible={showMyAccount} />
         </div>
 
         <RouterProvider router={router} />
       </div>
     </React.StrictMode>
     </AppContextProvider>
+    
   )
 }
 

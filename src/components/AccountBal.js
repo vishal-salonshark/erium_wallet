@@ -80,7 +80,7 @@ const AccountBal = (acc, bal) => {
         <div className='w-96 h-20 flex items-center px-4 border-y-[1px] border-gray-500 text-white'>
             <div className='w-10 h-10 rounded-full border-[2px] border-[#89CDB3] flex justify-center items-center bg-white' ></div>
             <div className='w-72 h-14 px-4 flex flex-col justify-start items-center'>
-                <div className=' font-light gap-2 w-full'><label className='truncate w-10'>{String(userBalance)}</label> ETH</div>
+                <div className=' flex flex-row font-light gap-2 w-full'><div className='truncate w-28'>{String(userBalance)}</div><small  className='text-sm'> ETH</small></div>
                 <div className='w-full text-sm text-gray-500'>$0.00 USD</div>
             </div>
             <div className='w-5 h-20 flex justify-end items-center'> <MdArrowForwardIos className='font-bold text-lg'/></div>
@@ -90,7 +90,7 @@ const AccountBal = (acc, bal) => {
         <div className='w-96 h-20 flex items-center px-4 border-b-[1px] border-gray-500 text-white' key={token}>
             <div className='w-10 h-10 rounded-full border-[2px] border-[#89CDB3] flex justify-center items-center bg-white' ></div>
             <div className='w-72 h-14 px-4 flex flex-col justify-start items-center'>
-                <div className='w-full font-light gap-2'><label className='truncate max-w-14'>{balance}</label>{symbol}</div>
+                <div className='w-full flex flex-row font-light gap-2'><div className='truncate w-28'>{balance}</div><small className='text-sm'>{symbol}</small></div>
                 <div className='w-full text-sm text-gray-500'>$0.00 USD</div>
             </div>
             <div className='w-5 h-20 flex justify-end items-center'> <MdArrowForwardIos className='font-bold text-lg'/></div>
