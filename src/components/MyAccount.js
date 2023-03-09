@@ -38,7 +38,7 @@ const MyAccount = ({visible, onClose}) => {
             storageLength !== 0 ?
             Object.entries(localStorage).map((entries, index) => {
                 if(entries[0] !== 'login'){
-                return(<button className='h-14 w-full p-3 mt-2 flex flex-row just   ify-start items-center rounded-lg focus:border-2 focus:border-blue-500' onClick={()=>{setAddress(entries[0]); onClose();}}>
+                return(<button className='h-14 w-full p-3 mt-2 flex flex-row just   ify-start items-center rounded-lg focus:border-2 focus:border-blue-500' key={index} onClick={()=>{setAddress(entries[0]); onClose();}}>
                 <div className='w-8 h-8 mx-1 rounded-full border-[2px] border-blue-500 flex justify-center items-center bg-white'></div>
                 <div className='p-3 w-ful'>
                     <label className='text-sm flex flex-col justify-center items-start'>Account {index}<small className='truncate w-44'>{entries[0]}</small></label>

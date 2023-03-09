@@ -11,6 +11,7 @@ import CreateNewAccount from './components/CreateNewAccount'
 import Home from './components/Home'
 import Swap from './components/Swap'
 import SignTx from './components/SignTx'
+import TxRecipt from './components/TxRecipt'
 
 
 function App() {
@@ -44,8 +45,12 @@ function App() {
       element: <Swap />,
     },
     {
-      path: '/SignTx',
+      path: '/SendTx',
       element: <SignTx />,
+    },
+    {
+      path: '/txRecipt',
+      element: <TxRecipt />,
     },
   ])
 

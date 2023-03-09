@@ -60,10 +60,10 @@ const Erium =  () => {
                     <div className='w-10 h-10 bg-[#89CDB3] rounded-full flex justify-center items-center'><BiImport className='w-6 h-6 text-white font-bold'/></div>
                     <label className='text-sm mt-2 text-[#89CDB3]'>Buy</label>
                 </div>
-                <div className='flex flex-col justify-center items-center'>
+                <Link className='flex flex-col justify-center items-center' to={'/SendTx'}>
                     <div className='w-10 h-10 bg-[#89CDB3] rounded-full flex justify-center items-center'><BsArrowUpRight className='w-5 h-5 text-white font-extrabold'/></div>
                     <label className='text-sm mt-2 text-[#89CDB3]'>Send</label>
-                </div>
+                </Link>
                 <Link className='flex flex-col justify-center items-center' to={'/swap'}>
                     <div className='w-10 h-10 bg-[#89CDB3] rounded-full flex justify-center items-center'><AiOutlineSwap className='w-6 h-6 text-white font-bold'/></div>
                     <label className='text-sm mt-2 text-[#89CDB3]' >Swap</label>
@@ -80,7 +80,7 @@ const Erium =  () => {
             </button>
         </div>
 
-    {menu === 'Assets' ?<AccountBal acc={_address} bal={balance}/>:<label className='text-base mt-5 text-gray-300 '>No Activity Yet...!</label>}
+    {menu === 'Assets' ?<AccountBal/>:<label className='text-base mt-5 text-gray-300 '>No Activity Yet...!</label>}
 
     <div className='w-96 h-8 flex justify-center gap-2 text-sm items-center my-2 text-white'>Need help ? <label className='text-blue-500'> Contact Erium support</label></div>
 

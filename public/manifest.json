@@ -1,13 +1,13 @@
 {
-  "short_name": "EriumWallet",
-  "name": "Erium Wallet",
-  "description": "A crypto wallet for Erium blockchain.",
   "manifest_version": 3,
-  "version": "1.0",
+  "name": "chrome Extension Demo",
+  "description": "react chrome Extension",
+  "version": "1.0.0",
   "action": {
-      "default_popup": "index.html",
-      "default_title": "Open Wallet"
+    "default_popup": "index.html",
+    "default_title": "Open"
   },
-  "permissions": []
-  
+  "permissions": [
+    "scripting"
+  ]
 }

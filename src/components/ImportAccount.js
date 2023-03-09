@@ -22,27 +22,6 @@ const ImportAccount = () => {
  
     const navigate = useNavigate();
 
-    // const getAccoountByPrivateKey = async () => {
-       
-    //     console.log(account)
-    //     // const account = await web3.eth.accounts.wallet.add(privateKey);
-    //     // console.log(account)
-        
-    //     // const jsonData = await web3.eth.accounts.wallet.encrypt('123456789');
-    //     // console.log((jsonData[0]))
-
-    //     // const data = JSON.stringify(jsonData[0])
-    //     // const blob = new Blob([data], { type: 'application/json' })
-    //     // const url = URL.createObjectURL(blob)
-    //     // const link = document.createElement('a')
-    //     // link.href = url
-    //     // link.download = 'myFile.json'
-    //     // document.body.appendChild(link)
-    //     // link.click()
-    //     // document.body.removeChild(link)
-        
-
-    // }
 
     const handleFileUpload = (event) => {
         const file = event.target.files[0];
@@ -56,19 +35,6 @@ const ImportAccount = () => {
         reader.readAsText(file);
       };
     
-    //   const getAccoountByEncreptedKey = async () => {
-    //     try {
-    //         // console.log(fileContents)
-    //     //   const jsonData = JSON.parse(fileContents);
-    //     //   console.log(jsonData);
-    //     // const jsonData = await web3.eth.accounts.wallet.decrypt([fileContents], '123456789');
-    //     // const account = await web3.eth.accounts.wallet.add(jsonData[0].privateKey);
-    //     // console.log(account)
-    //     } catch (error) {
-    //       console.error(error);
-    //     }
-    //   };
-
 
     useEffect(() => {
         const data = [{ option: 'PrivateKey' }, { option: 'JsonFile' }]
