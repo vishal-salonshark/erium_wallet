@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { createContext, useState, useEffect } from "react";
-import { json } from "react-router-dom";
 import Web3 from "web3";
 
 export const AppContext = createContext(null);
@@ -18,6 +17,8 @@ export const AppContextProvider = ({ children }) => {
     const [_password, setPassword] = useState()
     const [data, setData] = useState()
     const [_address, setAddress] = useState()
+
+
     const web3 = new Web3(new Web3.providers.HttpProvider('http://99.80.123.81:8545'));
 
 
@@ -45,9 +46,11 @@ export const AppContextProvider = ({ children }) => {
         setToWallet(account)
         
         setAccount(account)
-
+        
+        setAddress(account.address)
         setStorageLength(localStorage.length)
 
+        
         // const jsonData = await web3.eth.accounts.wallet.encrypt('123456789');
         // console.log((jsonData[0]))
 
@@ -71,6 +74,7 @@ export const AppContextProvider = ({ children }) => {
         for(let i=0; i<jsonData.length; i++){
             // console.log(jsonData[i])
             setToWallet(jsonData[i])
+            setAddress(jsonData[i].address)
             setStorageLength(localStorage.length)
         }
         // const account = await web3.eth.accounts.wallet.add(jsonData[0].privateKey);

@@ -10,6 +10,8 @@ import Login from './components/Login'
 import CreateNewAccount from './components/CreateNewAccount'
 import Home from './components/Home'
 import Swap from './components/Swap'
+import SignTx from './components/SignTx'
+
 
 function App() {
   const router = createBrowserRouter([
@@ -40,6 +42,10 @@ function App() {
     {
       path: '/swap',
       element: <Swap />,
+    },
+    {
+      path: '/SignTx',
+      element: <SignTx />,
     },
   ])
 

@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable eqeqeq */
 import React, { useState, useEffect,useContext } from 'react'
+import { useNavigate } from "react-router-dom";
 import { BiChevronDown } from 'react-icons/bi'
 import Web3 from 'web3'
 import AppContext  from '../AppContext'
@@ -19,6 +20,7 @@ const ImportAccount = () => {
     var web3 = new Web3(new Web3.providers.HttpProvider('http://99.80.123.81:8545'));    
 
  
+    const navigate = useNavigate();
 
     // const getAccoountByPrivateKey = async () => {
        
@@ -134,7 +136,7 @@ const ImportAccount = () => {
                         <input type="text" className='align-middle border-2 text-base border-[#89CDB3] rounded-lg bg-transparent p-4 placeholder-[#89cdb36b] m-2 w-80 h-14' name="PrivateKey" id="" onChange={(e) => setPrivateKey(e.target.value)} />
                         <div className=' flex justify-around items-center mt-6' >
                             <button className='text-[#89CDB3] text-base w-36 h-14 border-2 border-[#89CDB3] rounded-full'>Cancel</button>
-                            <button className='text-white text-base w-36 h-14 bg-[#89CDB3] border-2 border-[#89CDB3] hover:bg-opacity-20 hover:text-[#89CDB3] rounded-full' onClick={() => getAccoountByPrivateKey()}>Import</button>
+                            <button className='text-white text-base w-36 h-14 bg-[#89CDB3] border-2 border-[#89CDB3] hover:bg-opacity-20 hover:text-[#89CDB3] rounded-full' onClick={() => {getAccoountByPrivateKey(); navigate('/Erium');}}>Import</button>
                         </div>
                     </div>
                     :selected === 'JsonFile' ? <div className='text-base mt-2 flex flex-col justify-center items-center'>
