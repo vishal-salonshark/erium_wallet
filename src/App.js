@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+/* eslint-disable no-unused-vars */
+import React, { useState, useContext } from 'react'
 import Erium from './components/Erium'
 import { BsChevronDown } from 'react-icons/bs'
 import MyAccount from './components/MyAccount'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { AppContextProvider } from './AppContext'
+// import { AppContextProvider } from './AppContext'
+import AppContext from './AppContext'
 import CreateAccount from './components/CreateAccount'
 import ImportAccount from './components/ImportAccount'
 import Login from './components/Login'
@@ -54,21 +56,19 @@ function App() {
     },
   ])
 
-  // const {result} = useContext(AppContext)
-  const [showMyAccount, setShowMyAccount] = useState(false)
-  const handleOnClose = () => {
-    setShowMyAccount(false)
-  }
+  const { showMyAccount, handleMyAccountClick, handleMyAccountClose } =
+    useContext(AppContext)
+
   
 
   return (
     
-    <AppContextProvider>
     <React.StrictMode>
       <div className="w-96 h-[37rem] flex flex-col text-white  bg-[#030214] justify-start items-center border-2 border-gray-300 ">
+
         <div className="h-20 w-full bg-gray-100 flex flex-row justify-between items-center p-2 gap-2">
           <div className="w-10 h-10 flex justify-center items-center rounded-full text-black bg-white text-xs">
-            <a href='/'>LOGO</a>
+            <a href="/">LOGO</a>
           </div>
           <div className="h-10 flex justify-center items-center ">
             {' '}
@@ -76,20 +76,21 @@ function App() {
               Erium Network <BsChevronDown className="w-3 h-3" />
             </div>{' '}
           </div>
-         <div
+          <div
             className="w-10 h-10 rounded-full border-[2px] border-blue-500 flex justify-center items-center bg-white"
-            onClick={() => {
-              setShowMyAccount(true)
-            }}
+            onClick={handleMyAccountClick}
           ></div>
-         
-        <MyAccount onClose={handleOnClose} visible={showMyAccount} />
+          <MyAccount
+            visible={showMyAccount}
+            onClose={handleMyAccountClose}
+          />
         </div>
-
+        
         <RouterProvider router={router} />
-      </div>
+      </div> 
+
+
     </React.StrictMode>
-    </AppContextProvider>
     
   )
 }

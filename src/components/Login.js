@@ -28,7 +28,7 @@ const Login = () => {
 
   function onLogin() {
 
-    axios.get(`http://localhost:5500/login/${_email}`).then((response)=>{
+    axios.get(`http://localhost:3001/login/${_email}`).then((response)=>{
         setData(response.data)
     })
 

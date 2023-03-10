@@ -1,29 +1,25 @@
-/* eslint-disable no-unused-vars */
-import React from 'react'
 import { SwapWidget } from '@uniswap/widgets'
 import '@uniswap/widgets/fonts.css'
-import Web3 from 'web3'
 
 
 const Swap = () => {
 
-    // const jsonRpcUrlMap = { 
-    //     20231226: ['http://99.80.123.81:8545'], 
-    //   }
-    // const theme = {
-    //     primary: '#FFF',
-    //     secondary: '#89CDB3',
-    //     interactive: '#e5e7eb',
-    //     container: '#030214',
-    //     module: '#030214',
-    //     accent: '#89CDB3',
-    //     outline: '#89CDB3',
-    //     dialog: '#030214',
+  const Theme = {
+    borderRadius: 0,
+    primary: '#FFF',
+    secondary: '#A9A9A9',
+    interactive: '#0089EC',
+    container: '#222633',
+    module: '#4E4E5A',
+    accent: '#89CDB3',
+    outline: '#030214',
+    dialog: '#000',
+    fontFamily: 'Josefin Sans',
+  }
 
-    // }
   return (
-    <div className=' mt-10'>
-        {/* <SwapWidget jsonRpcUrlMap={jsonRpcUrlMap} theme={theme}/> */}
+    <div className='h-[30rem] mt-3 px-3 text-lg text-white overflow-auto scrollbar-none'>
+      <SwapWidget theme={Theme} />
     </div>
   )
 }

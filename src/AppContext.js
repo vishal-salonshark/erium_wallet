@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { createContext, useState, useEffect } from "react";
+import axios from 'axios';
 import Web3 from "web3";
 
 export const AppContext = createContext(null);
@@ -20,6 +21,22 @@ export const AppContextProvider = ({ children }) => {
     const [ethBalance,setETHBalance] = useState('')
     const [txRecipt, setTxRecipt] = useState()
     const [tokenBalances, setTokenBalances] = useState({})
+    const [txData,setTxData] = useState()
+    const [showMyAccount, setShowMyAccount] = useState(false)
+
+    const handleMyAccountClick = () => {
+      setShowMyAccount(true)
+    }
+  
+    const handleMyAccountClose = () => {
+      setShowMyAccount(false)
+    }
+
+    // const [showMyAccount, setShowMyAccount] = useState(false)
+    
+    // const handleOnClose = () => {
+    // setShowMyAccount(false)
+    // }
 
 
     const web3 = new Web3(new Web3.providers.HttpProvider('http://99.80.123.81:8545'));
@@ -41,7 +58,16 @@ export const AppContextProvider = ({ children }) => {
           console.log(key + ' already exists in local storage');
         }
      }
-
+    const getTxData = () => {
+      axios.get(`http://localhost:3001/tarnsactionsList`).then((response)=>{
+        setTxData(response.data)
+       })
+    }
+       
+      useEffect(() => {
+       console.log(txData)
+     }, [txData])
+     
      useEffect(() =>{
       if(_address){
         const getBal = async () => {
@@ -225,6 +251,7 @@ export const AppContextProvider = ({ children }) => {
             const sentTx = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
             console.log('Transaction Hash:', sentTx);
             setTxRecipt(sentTx)
+            getTxData()
             return sentTx;
           } catch (error) {
             console.error(error);
@@ -253,6 +280,10 @@ export const AppContextProvider = ({ children }) => {
         ethBalance,setETHBalance,
         tokenBalances, setTokenBalances,
         txRecipt, setTxRecipt,
+        showMyAccount, setShowMyAccount,
+        handleMyAccountClick,
+        handleMyAccountClose,
+        txData, getTxData,
      };
 
   return (

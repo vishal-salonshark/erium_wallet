@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable array-callback-return */
 import React, {useContext, useEffect} from 'react'
@@ -9,28 +10,28 @@ import {GrAdd} from 'react-icons/gr'
 import AppContext  from '../AppContext'
 
 
-const MyAccount = ({visible, onClose}) => {
-    const { storageLength ,setStorageLength, _address, setAddress} = useContext(AppContext)
-    const handleOnClose = (e) =>{
-        if(e.target.id === 'MyAccount'){
-            onClose()
-        }
-    }
-    // useEffect(() => {
-    //   console.log(_address)      
-    // }, [_address])
-    
-    setStorageLength(localStorage.length)
+const MyAccount = () => {
+    const { showMyAccount, handleMyAccountClose, storageLength, setStorageLength, setAddress } = useContext(AppContext)
 
+    const handleOnClose = (e) => {
+      if (e.target.id === 'MyAccount') {
+        handleMyAccountClose()
+      }
+    }
     
-    if(!visible) return null
+    useEffect(() => {
+        setStorageLength(localStorage.length)
+    }, [localStorage.length])
+    
+  
+    if (!showMyAccount) return null
   
     return (
     <div onClick={handleOnClose} id='MyAccount' className="fixed inset-0 text-black p-2 opacity-90 flex items-center justify-center">
     <div className="bg-white  rounded  w-80">
         <div className='flex felx-row justify-between items-center p-2 text-lg border-b-[1px] border-gray-300'>
             <label>My Account</label>
-            <TfiClose className='w-4 h-4 text-gray-600 font-light' onClick={onClose}/>
+            <TfiClose className='w-4 h-4 text-gray-600 font-light' onClick={handleMyAccountClose}/>
         </div>
 
       <div className="h-28 mt-2 px-2 overflow-auto scrollbar-none ">
@@ -38,7 +39,7 @@ const MyAccount = ({visible, onClose}) => {
             storageLength !== 0 ?
             Object.entries(localStorage).map((entries, index) => {
                 if(entries[0] !== 'login'){
-                return(<button className='h-14 w-full p-3 mt-2 flex flex-row just   ify-start items-center rounded-lg focus:border-2 focus:border-blue-500' key={index} onClick={()=>{setAddress(entries[0]); onClose();}}>
+                return(<button className='h-14 w-full p-3 mt-2 flex flex-row just   ify-start items-center rounded-lg focus:border-2 focus:border-blue-500' key={index} onClick={()=>{setAddress(entries[0]); handleMyAccountClose();}}>
                 <div className='w-8 h-8 mx-1 rounded-full border-[2px] border-blue-500 flex justify-center items-center bg-white'></div>
                 <div className='p-3 w-ful'>
                     <label className='text-sm flex flex-col justify-center items-start'>Account {index}<small className='truncate w-44'>{entries[0]}</small></label>

@@ -72,7 +72,7 @@ const CreateNewAccount = () => {
 
     const onSubmit = async () =>{
         try {
-          await axios.put('http://localhost:5500/userData', {
+          await axios.put('http://localhost:3001/signUp', {
                 email : _email,
                 userid : _userid,
                 password : _password,

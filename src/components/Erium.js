@@ -9,6 +9,7 @@ import AccountBal from './AccountBal'
 import Web3 from 'web3'
 import AppContext from '../AppContext'
 import { Link } from 'react-router-dom'
+import TxData from './TxData'
 
 const Erium =  () => {
     var web3 = new Web3(new Web3.providers.HttpProvider('http://99.80.123.81:8545'));
@@ -51,7 +52,7 @@ const Erium =  () => {
             
         </div>
         
-        <div className='flex flex-col mb-9 justify-center items-center'>
+        <div className='flex flex-col mb-5 justify-center items-center'>
             <div className='w-10 h-10 rounded-full m-2 border-[2px] border-gray-200 flex justify-center items-center bg-white'></div>
             <div className=' w-56 flex justify-center my-2 items-center text-white font-bold text-4xl'><label className='truncate'>{balance}</label> ETH</div>
             <div className=' flex justify-center mb-4 items-center text-gray-200 text-base'>$0.00 USD</div>
@@ -80,7 +81,7 @@ const Erium =  () => {
             </button>
         </div>
 
-    {menu === 'Assets' ?<AccountBal/>:<label className='text-base mt-5 text-gray-300 '>No Activity Yet...!</label>}
+    {menu === 'Assets' ?<AccountBal/>:<TxData/>}
 
     <div className='w-96 h-8 flex justify-center gap-2 text-sm items-center my-2 text-white'>Need help ? <label className='text-blue-500'> Contact Erium support</label></div>
 
