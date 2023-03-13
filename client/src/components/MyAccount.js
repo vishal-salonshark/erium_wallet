@@ -66,18 +66,18 @@ const MyAccount = () => {
       </div>
 
       <div className='mb-2 p-2 border-y-[1px] border-gray-400'>
-        <Link to={'/CreateAccount'} className='flex flex-row justify-start items-center gap-3 p-2 text-gray-600 hover:bg-[#89cdb372]'>
+        <Link to={'/CreateAccount'} className='flex flex-row justify-start items-center gap-3 p-2 text-gray-600 hover:bg-[#89cdb372]' onClick={()=>handleMyAccountClose()}>
             <AiOutlinePlus className='w-6 h-6'/>
             <label className='text-black text-base font-light'>Create Account</label>
             {/* <Link className='text-black text-base font-light' to={'/CreateAccount'}>Create Account</Link> */}
         </Link>
 
-        <Link to={'/ImportAccount'} className='flex flex-row justify-start items-center gap-3 p-2 text-gray-600 hover:bg-[#89cdb372]'>
+        <Link to={'/ImportAccount'} className='flex flex-row justify-start items-center gap-3 p-2 text-gray-600 hover:bg-[#89cdb372]' onClick={()=>handleMyAccountClose()}>
             <BiArrowToBottom className='w-6 h-6 font-extralight'/>
             <label className='text-black text-base font-light'>Import Account</label>
         </Link>
 
-        <div className='flex flex-row justify-start items-center gap-3 p-2 text-gray-600 hover:bg-[#89cdb372]'>
+        <div className='flex flex-row justify-start items-center gap-3 p-2 text-gray-600 hover:bg-[#89cdb372]'onClick={()=>handleMyAccountClose()}>
             <TbPlugConnected className='w-6 h-6'/>
             <label className='text-black text-base font-light'>Connect a hardware wallet</label>
         </div>

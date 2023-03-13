@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import {  Link } from 'react-router-dom'
 import {MdOutlineError} from 'react-icons/md'
 import axios from 'axios'
 const CreateNewAccount = () => {
@@ -95,7 +95,6 @@ const CreateNewAccount = () => {
        <div className='w-80 h-20 flex justify-center items-center'>
       <label className=' text-2xl '>Create New Wallet</label>
       </div>
-      
       <div className='text-base flex flex-col justify-center items-center'>
       <input type="email" className='align-middle border-2 border-[#89CDB3] rounded-lg bg-transparent p-4 placeholder-[#89cdb36b] m-2 w-80 h-12' name="accountName" placeholder='Email ID' onChange={ (e) => {setEmail(e.target.value);}} />
       <input type="password" className='align-middle border-2 border-[#89CDB3] rounded-lg bg-transparent p-4 placeholder-[#89cdb36b] m-2 w-80 h-12' autoComplete='off' name="accountName" placeholder='New Password' onChange={ (e) => setPassword(e.target.value)} />
@@ -120,7 +119,6 @@ const CreateNewAccount = () => {
         </div>
       <label className='text-base text-white'>already have account? <Link className='text-blue-500 hover:underline' to={'/'}>Login</Link></label>
       </div>
-      
     </div>
   )
 }

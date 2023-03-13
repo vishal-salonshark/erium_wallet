@@ -3,7 +3,7 @@ import React, { useState, useContext } from 'react'
 import Erium from './components/Erium'
 import { BsChevronDown } from 'react-icons/bs'
 import MyAccount from './components/MyAccount'
-import { HashRouter, Routes, Route, createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { HashRouter, Routes, Route, createBrowserRouter, RouterProvider, Link } from 'react-router-dom'
 // import { AppContextProvider } from './AppContext'
 import AppContext from './AppContext'
 import CreateAccount from './components/CreateAccount'
@@ -14,6 +14,7 @@ import Home from './components/Home'
 import Swap from './components/Swap'
 import SignTx from './components/SignTx'
 import TxRecipt from './components/TxRecipt'
+import SignUP from './components/SignUP'
 
 
 function App() {
@@ -69,7 +70,7 @@ function App() {
 
         <div className="h-20 w-full bg-gray-100 flex flex-row justify-between items-center p-2 gap-2">
           <div className="w-10 h-10 flex justify-center items-center rounded-full text-black bg-white text-xs">
-            <a href="/">LOGO</a>
+            <Link to={'/'}>LOGO</Link>
           </div>
           <div className="h-10 flex justify-center items-center ">
             {' '}
@@ -77,19 +78,23 @@ function App() {
               Erium Network <BsChevronDown className="w-3 h-3" />
             </div>{' '}
           </div>
-          <div
-            className="w-10 h-10 rounded-full border-[2px] border-blue-500 flex justify-center items-center bg-white"
-            onClick={handleMyAccountClick}
-          ></div>
-          <MyAccount
-            visible={showMyAccount}
-            onClose={handleMyAccountClose}
-          />
+          {
+            localStorage.getItem('login') === 'true'?<div>
+              <div
+                className="w-10 h-10 rounded-full border-[2px] border-blue-500 flex justify-center items-center bg-white"
+                onClick={handleMyAccountClick}
+              ></div>
+              <MyAccount
+                visible={showMyAccount}
+                onClose={handleMyAccountClose}
+              />
+            </div>:<div className='w-10 h-10'></div>
+          }
         </div>
         <Routes>
           <Route path='/' element={ <Login />}/>
           <Route path='/Home' element={ <Home />}/>
-          <Route path='/CreateNewAccount' element={ <CreateNewAccount />}/>
+          <Route path='/CreateNewAccount' element={ <CreateNewAccount/>}/>
           <Route path='/Erium' element={ <Erium />}/>
           <Route path='/CreateAccount' element={ <CreateAccount />}/>
           <Route path='/ImportAccount' element={ <ImportAccount />}/>

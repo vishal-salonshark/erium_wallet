@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState, useContext } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Form, Link, useNavigate } from 'react-router-dom'
 import AppContext from '../AppContext'
 // import Web3 from 'web3/types'
 
@@ -29,6 +29,7 @@ const SignTx = () => {
       <div>
         <label className='text-white p-2 text-sm font-semibold'>{_address}</label>
       </div>
+      
       <div className=' flex flex-col justify-center my-3 items-start px-5'>
         <label className='m-2 px-2' >Send To</label>
         <input type="text" className='align-middle border-2 border-[#89CDB3] rounded-lg bg-transparent p-4 placeholder-[#89cdb36b] m-2 w-80 h-14' name="accountName" placeholder='Send To' onChange={(e) => setSendTo(e.target.value)}  />
@@ -118,9 +119,10 @@ const SignTx = () => {
         </div>
       </div>
       <div className=' h-14 flex flex-row justify-around items-center'>
-        <Link to={'/Erium'}><button type='button' className='w-28 h-10 text-[#89CDB3] border-2 border-[#89CDB3] rounded-full'>Cancel</button></Link>
+      <Link to={'/Erium'}><button type='button' className='w-28 h-10 text-[#89CDB3] border-2 border-[#89CDB3] rounded-full'>Cancel</button></Link>  
         <button type='submit' className='w-28 h-10 bg-[#89CDB3] font-bold hover:bg-opacity-20 hover:text-[#89CDB3] border-2 border-[#89CDB3] rounded-full' onClick={() => {sendTx(sendTo, _address, amount, gasPrice, gasLimit); navigate("/txRecipt")}}>Send</button>
       </div>
+      
     </div>
   )
 }
